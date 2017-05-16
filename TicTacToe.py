@@ -311,7 +311,7 @@ class FakeGame(object):
             if len(opponent_spaces) == 2:
                 # Finds which space to block
                 for game_over_space in game_over_position:
-                    if game_over_space not in opponent_spaces and self.board[game_over_space] != 1:
+                    if game_over_space not in opponent_spaces and self.board[game_over_space] != -piece_to_check:
                         spaces_to_block.append(game_over_space)
 
         return spaces_to_block
