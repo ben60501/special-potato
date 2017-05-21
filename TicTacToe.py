@@ -229,7 +229,6 @@ class FakeGame(object):
         if len(spaces_to_block) == 0:
             # If there are no spaces to block then it looks for the win
             spaces_to_block = self.look_for_two_in_a_row(1)
-            print 'For the Win'
 
         if len(spaces_to_block) == 0:
             # If there are no spots that it needs to go to it plays a random move
@@ -240,7 +239,6 @@ class FakeGame(object):
         elif len(spaces_to_block) > 1:
             # If there are two spots in needs to go to it picks the first one
             self.play_piece(spaces_to_block[0] + 1)
-            print spaces_to_block
 
     def real_move(self, prediction):
         should_play_piece = True

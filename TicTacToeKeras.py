@@ -1,5 +1,4 @@
-import pygame
-from keras.models import Sequential, load_model, model_from_json
+from keras.models import Sequential, model_from_json
 from keras.layers import Dense
 from TicTacToe import *
 import numpy as np
@@ -21,7 +20,6 @@ def play_random_games(number_of_games):
         if fake_game.should_use_data:
             all_boards += fake_game.format_game_boards()
             all_moves += fake_game.moves
-        print each_game
 
     return all_boards, all_moves
 
@@ -87,7 +85,6 @@ def get_model():
 
 
 def train_model(x, y):
-
     x = np.reshape(x, (-1, 9))
     y = np.reshape(y, (-1, 9))
 
@@ -96,17 +93,16 @@ def train_model(x, y):
 
     return model
 
-# x, y = play_random_games(3000)
 
-# model = train_model(x, y)
+x, y = play_random_games(100000)
 
-# save_model(model)
+model = train_model(x, y)
 
-model = get_model()
+save_model(model)
+
+# model = get_model()
 
 game = Game()
-
-model = get_model()
 
 while True:
     events = pygame.event.get()
