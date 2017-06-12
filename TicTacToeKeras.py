@@ -34,9 +34,19 @@ def play_model_based_games(number_of_games):
         fake_game = FakeGame()
 
         while not fake_game.game_over:
-            board_to_predict = fake_game.board
-            board_to_predict = np.reshape(board_to_predict, (-1, 9))
-            fake_game.real_move(model.predict(board_to_predict)[0])
+            spaces_to_block = fake_game.look_for_two_in_a_row(-1)
+
+            if len(spaces_to_block) == 0:
+                # If there are no spots that it needs to go to it plays a random move
+                board_to_predict = fake_game.board
+                board_to_predict = np.reshape(board_to_predict, (-1, 9))
+                fake_game.real_move(model.predict(board_to_predict)[0])
+            if len(spaces_to_block) == 1:
+                # If there is a spot that it needs to go to it goes there
+                fake_game.play_piece(spaces_to_block[0] + 1)
+            elif len(spaces_to_block) > 1:
+                # If there are two spots in needs to go to it picks the first one
+                fake_game.play_piece(spaces_to_block[0] + 1)
 
         if fake_game.should_use_data:
             all_boards += fake_game.format_game_boards()
@@ -94,7 +104,8 @@ def train_model(x, y):
     return model
 
 
-x, y = play_random_games(100000)
+# x, y = play_random_games(100000)
+x, y = play_model_based_games(50000)
 
 model = train_model(x, y)
 
@@ -121,3 +132,5 @@ while True:
         else:
             game.get_pos_to_play(events)
     pygame.display.update()
+
+

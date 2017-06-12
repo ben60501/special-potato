@@ -227,10 +227,6 @@ class FakeGame(object):
         spaces_to_block = self.look_for_two_in_a_row(-1)
 
         if len(spaces_to_block) == 0:
-            # If there are no spaces to block then it looks for the win
-            spaces_to_block = self.look_for_two_in_a_row(1)
-
-        if len(spaces_to_block) == 0:
             # If there are no spots that it needs to go to it plays a random move
             self.random_move()
         if len(spaces_to_block) == 1:
